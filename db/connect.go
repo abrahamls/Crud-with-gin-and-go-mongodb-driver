@@ -2,8 +2,10 @@ package db
 
 import (
 	"context"
+	"log"
 	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -20,6 +22,11 @@ var (
 )
 
 func connectDB() *mongo.Database {
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	uri := os.Getenv("DB_URI")
 	dbName := os.Getenv("DB_NAME")
 
