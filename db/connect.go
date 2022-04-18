@@ -11,7 +11,8 @@ import (
 )
 
 var (
-	UserColl = DB.Collection("user")
+	UserColl = DB.Collection("users")
+	TeamColl = DB.Collection("teams")
 )
 
 var (
