@@ -1,17 +1,12 @@
 package main
 
 import (
-	"net/http"
+	"example/web-service-gin/controllers"
 
 	"github.com/gin-gonic/gin"
 )
 
 func SetRoutes(router *gin.Engine) {
 	// User
-	router.GET("/users", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"code":    200,
-			"message": "OI",
-		})
-	})
+	router.GET("/users", controllers.GetUsers)
 }
