@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetUsers(c *gin.Context) {
+func CreateUser(c *gin.Context) {
 
 	var req models.UserCreateRequest
 	err := c.Bind(&req)
@@ -40,4 +40,21 @@ func GetUsers(c *gin.Context) {
 		return
 	}
 	helpers.SendSuccess(c)
+}
+
+func GetUsers(c *gin.Context) {
+
+	var users []models.User
+	cursor, err := db.UserColl.Find(context.TODO(), bson.M{})
+	if err != nil {
+		helpers.SendInternalServerError(c, err)
+	}
+
+	err = cursor.All(context.TODO(), &users)
+	if err != nil {
+		helpers.SendInternalServerError(c, err)
+		return
+	}
+
+	helpers.SendData(c, users)
 }
